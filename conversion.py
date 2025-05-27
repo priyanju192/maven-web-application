@@ -1,31 +1,18 @@
-import pandas as pd
 import json
+import csv
 
-def convert_json_to_csv(json_filepath, csv_filepath):
-    """
-    Converts a JSON file to a CSV file.
+with open('/var/jenkins_home/reports/trivy-report.json') as jf:
+    jd = json.load(jf)
 
-    Args:
-        json_filepath (str): The path to the input JSON file.
-        csv_filepath (str): The path to the output CSV file.
-    """
-    try:
-        with open(json_filepath, 'r') as f:
-            data = json.load(f)
-            df = pd.json_normalize(data)
-    except FileNotFoundError:
-        print(f"Error: JSON file not found at {json_filepath}")
-        return
-    except json.JSONDecodeError:
-         print(f"Error: Invalid JSON format in {json_filepath}")
-         return
+df = open('/var/jenkins_home/reports/rep-jsonoutput.csv', 'w', newline='')
+cw = csv.writer(df)
 
-    data = [pd.Series(d) for d in data]
-    df = pd.DataFrame(data)
-    df.to_csv(csv_filepath, index=False)
-    print(f"Successfully converted {json_filepath} to {csv_filepath}")
+c = 0
+for data in jd:
+    if c == 0:
+        header = data.keys()
+        cw.writerow(header)
+        c += 1
+    cw.writerow(data.values())
 
-if __name__ == "__main__":
-    json_filepath = '/var/jenkins_home/reports/trivy-report.json'  
-    csv_filepath = '/var/jenkins_home/reports/final-output.csv' 
-    convert_json_to_csv(json_filepath, csv_filepath)
+df.close()
