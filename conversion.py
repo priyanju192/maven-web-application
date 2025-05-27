@@ -1,27 +1,18 @@
 import json
 import csv
 
-with open("/var/jenkins_home/reports/trivy-report.json") as file:
-    data = json.load(file)
+with open('/var/jenkins_home/reports/trivy-report.json') as jf:
+    jd = json.load(jf)
 
+df = open('/var/jenkins_home/reports/r1.csv', 'w', newline='')
+cw = csv.writer(df)
 
+c = 0
+for data in jd:
+    if c == 0:
+        header = data.keys()
+        cw.writerow(header)
+        c += 1
+    cw.writerow(data.values())
 
-# create the csv writer object
-pt_data1 = open('pt_data1.csv', 'w')
-csvwriter = csv.writer(pt_data1)
-
-count = 0
-
-for pt in data:
-
-      if count == 0:
-
-             header = pt.keys()
-
-             csvwriter.writerow(header)
-
-             count += 1
-
-      csvwriter.writerow(pt.values())
-
-pt_data1.close()
+df.close()
