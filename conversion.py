@@ -12,13 +12,15 @@ def convert_json_to_csv(json_filepath, csv_filepath):
     try:
         with open(json_filepath, 'r') as f:
             data = json.load(f)
+            df = pd.json_normalize(data)
     except FileNotFoundError:
         print(f"Error: JSON file not found at {json_filepath}")
         return
     except json.JSONDecodeError:
          print(f"Error: Invalid JSON format in {json_filepath}")
          return
-    
+
+    data = [pd.Series(d) for d in data]
     df = pd.DataFrame(data)
     df.to_csv(csv_filepath, index=False)
     print(f"Successfully converted {json_filepath} to {csv_filepath}")
