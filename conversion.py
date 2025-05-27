@@ -4,8 +4,8 @@ import json
 def convert_json_to_csv(json_filepath, csv_filepath):
 
     Args:
-        json_filepath (str): /var/jenkins_home/reports/trivy-report.json
-        csv_filepath (str): /var/jenkins_home/reports/finalreport.csv
+        json_filepath (str): "/var/jenkins_home/reports/trivy-report.json"
+        csv_filepath (str): "/var/jenkins_home/reports/finalreport.csv"
         
     try:
         with open(json_filepath, 'r') as f:
