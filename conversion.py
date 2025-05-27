@@ -57,6 +57,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python script.py <input_json_file> <output_csv_file>")
     else:
-        json_file_path = /var/jenkins_home/reports/trivy-report.json
-        csv_file_path = /var/jenkins_home/reports/tr.csv
+        json_file_path = sys.argv[1]
+        csv_file_path = sys.argv[2]
         convert_trivy_json_to_csv(json_file_path, csv_file_path)
