@@ -23,7 +23,7 @@ pipeline {
                 script {
                      sh 'ls'
                      sh 'pwd'
-                     sh 'cp /var/jenkins_home/reports/try.csv /var/jenkins_home/workspace/mail_test'
+                     sh 'cp /var/jenkins_home/reports/try.csv /var/jenkins_home/workspace/test_pipe'
                      sh 'ls'
                 }
             }
