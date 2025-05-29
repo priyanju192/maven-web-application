@@ -1,12 +1,13 @@
 pipeline {
     agent any
     stages {
+        '''
          stage('SCM Checkout') {
              steps {
                 git branch: 'master', url: 'https://github.com/priyanju192/maven-web-application.git'
              }
          }
-         
+         '''
          stage('Trivy scan') {
             steps {
                 script {
